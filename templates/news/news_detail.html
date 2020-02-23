@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+
+
+{% block title %} News Information Extraciton {% endblock title %}
+
+
+{% block content %}
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6"><h2> Full News: </h2>
+      {{ object.body }}
+    </div>
+
+    <div col="col-md-6">
+      <p id='summary'> Click on one of the news </p>
+    </div>
+
+  <!--
+  <div class="col-md-6">
+    <h2>Full News: </h2>
+    {{ object.body}}
+  </div>
+  <div class="col-md-6">
+    <br>
+    <br>
+    <h2> Death: </h2>   {{ object.death}}   <br>
+    <h2> Injury: </h2>    {{ object.injury}} <br>
+    <h2> Location: </h2>   {{ object.location }}  <br>
+
+  </div>
+-->
+</div> <!--row-->
+<input id="btn" type="button"  onclick="geocord()" value="plot location" />
+<div id=map>    </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+{% block javascript %}
+<script>
+$(document).ready(function(){
+
+  function present_summary(){
+    var accidentNews ={};
+
+    accidentNews[{{object.id}}] = {
+    location : "{{ object.location }}",
+    death : "{{ object.death }}",
+    death_no: "{{ object.death_no}}",
+    injury:"{{ object.injury}}",
+    injury_no:"{{ object.injury_no}}",
+    vehicle_no:"{{ object.vehicle_no }}",
+    date:"{{ object.date }}",
+    url:"{{ object.get_absolute_url }}",
+    day:"{{ object.day }}",
+
+    };
+
+
+
+        var news = accidentNews[{{object.id}}];
+        var vehicle = news.vehicle_no;
+        var decVehicle= $('<textarea/>').html(vehicle).text();
+
+        var v = decVehicle.replace(/\'/g, '"');
+        // alert(v);
+        // alert(JSON.stringify(v));
+        var jsonObject = JSON.parse((v));
+        // alert(jsonObject);
+        // alert(decVehicle);
+        // for (var key in jsonObject){
+        //   var vehicle = jsonObject[key];
+        //   // alert(jsonObject['tipper']);
+        // }
+
+        console.log({{object.id}});
+
+        $('#summary').replaceWith("<div id='summary'><h2> Extracted items </h2> <p> Death: " + news.death +  "</p><p> Death: " + news.death_no +  "</p><p> Injury: " + news.injury +"</p><p> Death: " + news.injury_no +  "</p><p> Vehicle Involved: " + news.vehicle_no +"</p><p>Location: " + news.location +"</p><p> Date: "+ news.date +"</p><p> Day:  "+ news.day +"</p></div>");
+
+  }
+  present_summary();
+
+});
+
+
+</script>
+<script>
+function geocord(){
+            // console.log(4);
+          var geocoder =  new google.maps.Geocoder();
+  geocoder.geocode( { 'address': '{{object.location}}'}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          // alert("location : " + results[0].geometry.location.lat() + " " +results[0].geometry.location.lng());
+          var uluru = {lat:results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            // Nepal 27.7172453, 85.3239605
+            // Websit 55.755, 37.615
+            center: uluru,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          });
+          marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+
+          });
+        } else {
+          alert("Something got wrong " + status);
+
+      }
+    });
+};
+</script>
+
+
+{% endblock javascript %}

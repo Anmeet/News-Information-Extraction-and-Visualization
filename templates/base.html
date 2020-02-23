@@ -1,0 +1,134 @@
+{% load staticfiles %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
+    <!-- <meta http-equiv="refresh" content="5; URL=http://127.0.0.1:8000/rssdb/" > -->
+
+
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> {% block title %} NIEV {% endblock title %} </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- google map
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  -->
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+    {% block css %}
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" type="text/css"/>
+
+    <link rel="stylesheet" href="{% static "css/news.css" %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static "css/custom.css" %}" type="text/css"/>
+
+
+
+
+    <style>
+    .page-header{
+      background: url({% static "img/road.jpe" %} );
+      background-size:100%;
+      /*background-position: center;*/
+      height:100px;
+      width:100%;
+      margin: 0.1px;
+
+
+
+    }
+    ul{
+      list-style-type: none;
+    }
+
+    .navbar-nav li{
+      /*color: #fff;*/
+      display: inline;
+      font-family: sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      margin-right: 25px;
+      text-transform: uppercase;
+    }
+
+    .navbar{
+      background-color: black;
+
+    }
+    </style>
+
+    {% endblock css %}
+
+    <div class="main-container">
+      <div class="page-header">
+      <h1 style = "color:black;"> News Information Extraction System </h1>
+      </div>
+
+
+      <nav class="navbar navbar-toggleable-md ">
+        <!-- <nav class="navbar navbar-default"> -->
+
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a {% block nav_index_r %} {% endblock nav_index_r %} style="color:white;" href="/" >Home</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a {% block nav_index_rs %} {% endblock nav_index_rs %} style="color:white;" href="/rssdb" >Rssdb</a>
+            </li> -->
+            <li class="nav-item">
+              <a {% block nav_index %} {% endblock nav_index %} style="color:white;" href="/news/" >Database</a>
+            </li>
+            <li class="nav-item">
+              <a {% block nav_index_e %} {% endblock nav_index_e %} style="color:white;" href="/news_ie/" >Extraction</a>
+            </li>
+            <li class="nav-item">
+              <a style="color:white;"  href="#">About Us</a></li>
+            </li>
+          </ul>
+        </div>
+      </nav>
+<!--
+      <nav class="navbar navbar-inverse bg-inverse">
+
+
+        <ul class="navbar-nav">
+          <li {% block nav_indexy %} {% endblock nav_indexy %}><a style="color:white;" href="/news/" >Home</a></li>
+          <li {% block nav_indexy_e %} {% endblock nav_indexy_e %} ><a style="color:white;" href="/news_ie/" >Extraction</a></li>
+          <li><a style="color:white;"  href="#">About Us</a></li>
+
+        </ul>
+
+    </nav>
+  -->
+  <br>
+
+
+</div>
+
+
+  </div>
+  </head>
+
+  <body >
+
+  {% block content %}
+
+  {% endblock content %}
+
+
+
+    {% block javascript %}
+
+    {% endblock javascript %}
+  </body>
+
+
+</html>

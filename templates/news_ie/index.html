@@ -1,0 +1,136 @@
+
+{% extends "base.html" %}
+{% block title %} News Information Extraciton {% endblock title %}
+
+{% block nav_index_e %}
+class=" nav-link active"
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+  <div class="col-md-6">
+<form action="/news_ie/" method="post">
+{% csrf_token %}
+{{ form }}
+ <input  class="btn btn-info" type="submit" value="Submit" />
+
+</form>
+</div>
+
+
+
+<div class="col-md-6">
+{% if sentences_dic %}
+<table class="table">
+  <tr>
+    <th scope="row"> <h4> Death </h4>  </th>
+    <td> {{ death }} </th>
+
+  </tr>
+  <tr>
+    <th scope="row"> <h4> Death No.</h4>  </th>
+    <td> {{ deathnum}} </th>
+
+  </tr>
+  <tr>
+    <th scope="row">
+      <h4> Injury </h4> </th>
+    <td> {{ injury }} <td>
+    </tr>
+    <tr>
+      <th scope="row"> <h4> Injury No. </h4>  </th>
+      <td> {{ injurynum}} </th>
+
+    </tr>
+  <tr>
+    <th scope="row"><h4> Date</h4></th>
+    <td>   {{date}} </td>
+  </tr>
+
+  <tr>
+    <th>  <h4> Vehicles</h4> </th>
+    <td>
+    {% for key,value in number_plate.items %}
+    <div>
+    {{ key }} ==>    {{ value }}
+
+    </div>
+
+    {% endfor %}
+  </td>
+  </tr>
+  <tr>
+    <th><h4>Day</h4> </th>
+
+  <td>  {{day}}</td>
+</tr>
+
+  <tr>
+    <th><h4> Location</h4> </th>
+
+  <td>  {{ location }}:{{ coordintae}}</td>
+</tr>
+    {% endif %}
+</table>
+</div>
+<button type="button" id="plot-btn" class="btn btn-primary" onclick="plotLocation({{lat}},{{lng}})"> Plot Location </button>
+
+<div id=map>    </div>
+
+<button type="button" id="btn" class="btn btn-primary" onclick="showAllWayPoints()">Show all Waypoints</button>
+
+</div>
+
+</div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+
+<script>
+
+var map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 10,
+  // Nepal 27.7172453, 85.3239605
+  // Websit 55.755, 37.615
+  center: new google.maps.LatLng(27.7172453, 85.3239605),
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+});
+function plotLocation(a,b)
+{
+  console.log(a);
+  console.log(b);
+  console.log("hello");
+  // var uluru = {lat:{{lat}}, lng: {{lng}}};
+  var uluru = {lat:27, lng:85};
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    // Nepal 27.7172453, 85.3239605
+    // Websit 55.755, 37.615
+    center: uluru,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+  marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+
+  });
+}
+
+
+</script>
+
+
+<script>
+
+// document.getElementById('plot-btn').onclick = function() {
+//  plotLocation()
+
+// };
+</script>
+{% endblock javascript %}
