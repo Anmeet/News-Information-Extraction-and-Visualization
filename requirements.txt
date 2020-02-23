@@ -10,7 +10,7 @@ numpy==1.13.0
 psycopg2==2.7.1
 pytz==2017.2
 quantities==0.11.1
-requests==2.11.1
+requests==2.20.0
 semantic==1.0.3
 six==1.10.0
 whitenoise==3.3.0
